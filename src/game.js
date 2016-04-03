@@ -378,7 +378,6 @@
      * Отрисовка экрана паузы.
      */
     _drawPauseScreen: function() {
-
       switch (this.state.currentStatus) {
         case Verdict.WIN:
           this._drawMessage('you have won!');
@@ -399,16 +398,9 @@
       var ctx = this.ctx;
       var dotX = 300;
       var dotY = 150;
-      var rectWidth = (this.canvas.width - (dotX + 100));
-      var rectHeight = (this.canvas.height - dotY);
-      var textFont = '16px PT Mono';
-      var lineHeight = parseInt(textFont, 10) * 1.5;
-      
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-      ctx.fillRect(dotX + 10, dotY + 10, rectWidth, rectHeight);
-      ctx.fillStyle = '#ffffff';
-      ctx.fillRect(dotX, dotY, rectWidth, rectHeight);
-      ctx.fillStyle = '#000000'
+      var rectW = (this.canvas.width - (dotX + 100));
+      var rectH = (this.canvas.height - dotY);
+
     },
 
     /**
