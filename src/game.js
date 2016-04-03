@@ -383,13 +383,13 @@
           this._drawMessage('you have won!');
           break;
         case Verdict.FAIL:
-          console.log('you have failed!');
+          this._drawMessage('you have failed!');
           break;
         case Verdict.PAUSE:
-          console.log('game is on pause!');
+          this._drawMessage('game is on pause!');
           break;
         case Verdict.INTRO:
-          console.log('welcome to the game! Press Space to start');
+          this._drawMessage('welcome to the game! Press Space to start');
           break;
       }
     },
@@ -408,6 +408,7 @@
       ctx.fillStyle = '#ffffff';
       ctx.fillRect(dotX, dotY, rectWidth, rectHeight);
       ctx.fillStyle = '#000000'
+      ctx.fillText()
     },
 
 
