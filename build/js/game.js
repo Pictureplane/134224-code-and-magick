@@ -411,21 +411,27 @@
       ctx.fillStyle = '#000000'
       ctx.font = textFont;
       ctx.textBaseLine = 'hanging';
-      parts.forEach(function(word){
-        var parts = message.split(' ');
-        var messageWidth = 200;
-        var currentWidth = 0;
-        var lineText = '';
 
-        currentWidth += word.TextLenght();
+      this._wrapText(ctx, message, (dotX+10), (dotY+20), (rectWidth-10), 15 );
+    },
 
-        if(currentWidth > messageWidth){
-          ctx.fillText(lineText);
-          currentWidth = 0;
-          lineText = '';
+    _wrapText: function(context, text, marginLeft, marginTop, maxWidth, lineHeight){
+        var words = text.split(" ");
+        var countWords = words.length;
+        var line = "";
+        for (var n = 0; n < countWords; n++) {
+            var testLine = line + words[n] + " ";
+            var testWidth = context.measureText(testLine).width;
+            if (testWidth > maxWidth) {
+                context.fillText(line, marginLeft, marginTop);
+                line = words[n] + " ";
+                marginTop += lineHeight;
+            }
+            else {
+                line = testLine;
+            }
         }
-        lineText += word;
-      });
+        context.fillText(line, marginLeft, marginTop);
     },
 
 
