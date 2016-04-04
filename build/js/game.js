@@ -380,16 +380,16 @@
     _drawPauseScreen: function() {
       switch (this.state.currentStatus) {
         case Verdict.WIN:
-          this._drawMessage('you have won!');
+          this._drawMessage('Вы выиграли!');
           break;
         case Verdict.FAIL:
-          console.log('you have failed!');
+          this._drawMessage('Вы проиграли!');
           break;
         case Verdict.PAUSE:
-          console.log('game is on pause!');
+          this._drawMessage('Игра на паузе!');
           break;
         case Verdict.INTRO:
-          console.log('welcome to the game! Press Space to start');
+          this._drawMessage('Добро пожаловать в игру, нажмите пробел для старта!');
           break;
       }
     },
@@ -402,12 +402,30 @@
       var rectHeight = (this.canvas.height - (dotY + 50));
       var textFont = '16px PT Mono';
       var lineHeight = parseInt(textFont, 10) * 1.5;
-
+      var textX = rectWidth;
+      var textY = rectHeight;
       ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
       ctx.fillRect(dotX + 10, dotY + 10, rectWidth, rectHeight);
       ctx.fillStyle = '#ffffff';
       ctx.fillRect(dotX, dotY, rectWidth, rectHeight);
       ctx.fillStyle = '#000000'
+      ctx.font = textFont;
+      ctx.textBaseLine = 'hanging';
+      parts.forEach(function(word){
+        var parts = message.split(' ');
+        var messageWidth = 200;
+        var currentWidth = 0;
+        var lineText = '';
+
+        currentWidth += word.TextLenght();
+
+        if(currentWidth > messageWidth){
+          ctx.fillText(lineText);
+          currentWidth = 0;
+          lineText = '';
+        }
+        lineText += word;
+      });
     },
 
 
