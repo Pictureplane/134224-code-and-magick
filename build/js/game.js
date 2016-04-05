@@ -380,19 +380,60 @@
     _drawPauseScreen: function() {
       switch (this.state.currentStatus) {
         case Verdict.WIN:
-          console.log('you have won!');
+          this._drawMessage('Вы выиграли!');
           break;
         case Verdict.FAIL:
-          console.log('you have failed!');
+          this._drawMessage('Вы проиграли!');
           break;
         case Verdict.PAUSE:
-          console.log('game is on pause!');
+          this._drawMessage('Игра на паузе!');
           break;
         case Verdict.INTRO:
-          console.log('welcome to the game! Press Space to start');
+          this._drawMessage('Добро пожаловать в игру, нажмите пробел для старта!');
           break;
       }
     },
+
+    _drawMessage: function(message) {
+      var ctx = this.ctx;
+      var dotX = 300;
+      var dotY = 150;
+      var rectWidth = (this.canvas.width - (dotX + 100));
+      var rectHeight = (this.canvas.height - (dotY + 50));
+      var textFont = '16px PT Mono';
+      var lineHeight = parseInt(textFont, 10) * 1.5;
+      var textX = rectWidth;
+      var textY = rectHeight;
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+      ctx.fillRect(dotX + 10, dotY + 10, rectWidth, rectHeight);
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(dotX, dotY, rectWidth, rectHeight);
+      ctx.fillStyle = '#000000'
+      ctx.font = textFont;
+      ctx.textBaseLine = 'hanging';
+
+      this._wrapText(ctx, message, (dotX+10), (dotY+20), (rectWidth-10), 15 );
+    },
+
+    _wrapText: function(context, text, marginLeft, marginTop, maxWidth, lineHeight){
+        var words = text.split(" ");
+        var countWords = words.length;
+        var line = "";
+        for (var n = 0; n < countWords; n++) {
+            var testLine = line + words[n] + " ";
+            var testWidth = context.measureText(testLine).width;
+            if (testWidth > maxWidth) {
+                context.fillText(line, marginLeft, marginTop);
+                line = words[n] + " ";
+                marginTop += lineHeight;
+            }
+            else {
+                line = testLine;
+            }
+        }
+        context.fillText(line, marginLeft, marginTop);
+    },
+
 
     /**
      * Предзагрузка необходимых изображений для уровня.
